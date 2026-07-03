@@ -9,6 +9,7 @@ Default to this structure:
 ```text
 dist/
   index.html
+  <target-derived-page>.html
   assets/
     css/styles.css
     js/main.js
@@ -16,7 +17,22 @@ dist/
     fonts/
 ```
 
-Add only the HTML files justified by the target website or the user's request, such as `category.html`, `list.html`, `detail.html`, `article.html`, `product.html`, `search.html`, `about.html`, or `contact.html`.
+Add only the HTML files justified by the target website or the user's request. Derive file names from the target site's actual information architecture, route semantics, navigation labels, and content types.
+
+Examples:
+
+- `/about` -> `about.html`
+- `/contact` -> `contact.html`
+- `/pricing` -> `pricing.html`
+- `/blog` -> `blog.html`
+- `/blog/post-title` -> `article.html` or `blog-post.html`
+- `/products` -> `products.html`
+- `/products/product-name` -> `product.html`
+- `/services` -> `services.html`
+- `/case-studies` -> `case-studies.html`
+- `/case-studies/client-name` -> `case-study.html`
+
+Do not assume a fixed `index.html`, `category.html`, `detail.html` trio. Use those names only when they are the best semantic fit or the user explicitly requests them.
 
 ## File Rules
 

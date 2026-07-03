@@ -2,7 +2,7 @@
 
 Tailwind Static Replica is a portable AI skill for recreating authorized target websites as static Tailwind CSS frontend pages.
 
-It guides an AI coding agent to inspect a target website, infer the needed page types, extract visual details and public assets, then generate static UI files such as `index.html`, `category.html`, `detail.html`, `article.html`, or `product.html`.
+It guides an AI coding agent to inspect a target website, infer the needed page set and filenames from the site's actual structure, extract visual details and public assets, then generate static UI files such as `index.html`, `about.html`, `products.html`, `product.html`, `blog.html`, `article.html`, or other target-derived pages.
 
 The goal is not to build a backend or apply a generic template. The goal is to produce a faithful static frontend reconstruction of the target site, with visual fidelity equal to or better than the source.
 
@@ -10,7 +10,7 @@ The goal is not to build a backend or apply a generic template. The goal is to p
 
 - Recreates authorized websites as static HTML/CSS/JS pages.
 - Uses Tailwind CSS by default.
-- Generates local pages such as `index.html`, `category.html`, and `detail.html`.
+- Generates local pages based on the target site's real navigation, route semantics, and content types.
 - Downloads allowed public assets into a local `assets/` folder.
 - Rewrites internal navigation to local `.html` files.
 - Converts backend-dependent behavior into static UI states or small vanilla JS interactions.
@@ -66,14 +66,14 @@ For Codex-style local skills, the destination is commonly:
 Then invoke it with:
 
 ```text
-Use $tailwind-static-replica to recreate https://example.com as static index.html, category.html, and detail.html pages.
+Use $tailwind-static-replica to recreate https://example.com as a static Tailwind site. Inspect the target structure first, decide the needed HTML pages and filenames, then generate the static UI with local assets and no backend.
 ```
 
 ## Typical Workflow
 
-1. Provide a target URL and any required page types.
+1. Provide a target URL and any required pages if you already know them.
 2. Let the agent inspect the website in a browser.
-3. The agent maps source routes to static files such as `index.html`, `category.html`, and `detail.html`.
+3. The agent creates a page plan by mapping source routes and navigation items to target-derived static filenames.
 4. The agent extracts text, layout, colors, typography, assets, spacing, breakpoints, and interactive states.
 5. The agent builds static Tailwind pages.
 6. The agent localizes allowed assets and rewrites links.
@@ -86,8 +86,9 @@ The generated project should look similar to:
 ```text
 dist/
   index.html
-  category.html
-  detail.html
+  about.html
+  products.html
+  product.html
   assets/
     css/styles.css
     js/main.js

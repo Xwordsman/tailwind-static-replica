@@ -1,6 +1,6 @@
 ---
 name: tailwind-static-replica
-description: Recreate authorized target websites as static Tailwind CSS frontend pages. Use when the user asks to replicate, rebuild, copy, reimplement, or convert a target website into static UI files such as index.html, category.html, detail.html, article.html, product.html, list.html, or search.html with no backend, no API dependency, and visual fidelity equal to or better than the source.
+description: Recreate authorized target websites as static Tailwind CSS frontend pages. Use when the user asks to replicate, rebuild, copy, reimplement, or convert a target website into static UI files with no backend, no API dependency, and visual fidelity equal to or better than the source. The agent must inspect the target site's structure and decide the page set and file names from the site's actual routes, content types, and navigation instead of assuming fixed pages.
 ---
 
 # Tailwind Static Replica
@@ -17,13 +17,16 @@ If the target includes account, checkout, payment, login, private dashboard, or 
 
 Read `references/static-output-contract.md` before creating files.
 
-Produce a static site such as:
+Produce a static site with `index.html` plus only the additional HTML files justified by the target site's structure or the user's explicit request. Examples include `about.html`, `contact.html`, `pricing.html`, `blog.html`, `article.html`, `products.html`, `product.html`, `services.html`, `case-studies.html`, and `case-study.html`.
+
+Example shape:
 
 ```text
 dist/
   index.html
-  category.html
-  detail.html
+  about.html
+  products.html
+  product.html
   assets/
     css/styles.css
     js/main.js
@@ -36,7 +39,7 @@ Do not create a backend. Do not require live APIs. Do not leave broken external 
 ## Workflow
 
 1. Inspect the target URL and any user-provided page list in a browser.
-2. Read `references/page-mapping.md`, then decide which static HTML pages to generate.
+2. Read `references/page-mapping.md`, then create a target-derived page plan before coding. Name pages from the target's actual route semantics and information architecture; do not default to `category.html` and `detail.html`.
 3. Capture desktop, tablet, and mobile evidence for each target page or representative page type.
 4. Use `references/extraction-snippets.md` to extract visible text, navigation, assets, colors, fonts, spacing, component structure, breakpoints, and simple states.
 5. Read `references/tailwind-rebuild-rules.md`, then build the static pages section by section with Tailwind-first styling.
@@ -44,6 +47,16 @@ Do not create a backend. Do not require live APIs. Do not leave broken external 
 7. Download allowed public assets locally, optimize filenames, and rewrite references to `assets/`.
 8. Run build or CSS compilation commands when used, then run local browser QA and `scripts/audit-static-output.mjs`.
 9. Read `references/qa-checklist.md` before final delivery.
+
+## Page Planning Requirement
+
+Before coding, create a concise page plan:
+
+```text
+source route or visible nav item -> output filename -> reason
+```
+
+If the user did not specify filenames, infer them from the target site's labels, URL paths, content types, and navigation. Do not generate a generic page trio. If the user specified filenames, honor them and map them to the closest matching source routes.
 
 ## Fidelity
 
@@ -90,6 +103,7 @@ If no browser tool is available, ask for screenshots or a browser-capable enviro
 Finish with:
 
 - Target URL(s).
+- Page plan and route-to-file mapping.
 - Generated static pages.
 - Assets downloaded or intentionally externalized.
 - Tailwind/build commands run.

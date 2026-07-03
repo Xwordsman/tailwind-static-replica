@@ -5,7 +5,8 @@ Run this checklist before final delivery.
 ## Static Audit
 
 - `index.html` exists.
-- All requested or inferred static pages exist.
+- A target-derived page plan exists or is summarized in the final report.
+- All requested or inferred static pages from the page plan exist.
 - Local CSS and JS files load.
 - Local images, fonts, videos, and icons load.
 - Internal links point to generated `.html` files or intentional inert `#` targets.
