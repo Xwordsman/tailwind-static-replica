@@ -99,13 +99,17 @@ For Codex-style local skills, the destination is commonly:
 ~/.codex/skills/tailwind-static-replica
 ```
 
-Then invoke it with:
+## Usage Prompts / 调用指令
+
+Copy one of these prompts into Codex after installing the skill.
+
+### English Short Prompt
 
 ```text
-Use $tailwind-static-replica to recreate https://example.com as a static Tailwind site. Inspect the target structure first, decide the needed HTML pages and filenames, then generate the static UI with local assets and no backend.
+Use $tailwind-static-replica to recreate https://example.com as a static Tailwind HTML site. Analyze the target site structure first, choose target-derived page filenames, then build the pages. No backend or APIs.
 ```
 
-Recommended prompt:
+### English Detailed Prompt
 
 ```text
 Use $tailwind-static-replica to recreate https://example.com as a static Tailwind site.
@@ -113,7 +117,74 @@ Use $tailwind-static-replica to recreate https://example.com as a static Tailwin
 First inspect the target site's structure and create a page plan:
 source route or visible nav item -> output filename -> reason
 
-Then generate the static HTML pages using target-derived filenames. Do not assume fixed pages like category.html or detail.html. No backend, no API calls. Localize public assets where possible and match desktop/tablet/mobile.
+Then generate static HTML pages using target-derived filenames. Do not assume a fixed page set such as index.html, category.html, and detail.html.
+
+Requirements:
+- Use Tailwind CSS for the static UI.
+- No backend, no database, and no live API calls.
+- Localize public assets where possible.
+- Rewrite internal links to generated local .html files.
+- Convert backend-dependent behavior into static UI states or small vanilla JS interactions.
+- Match desktop, tablet, and mobile layouts.
+- Preserve the target site's brand feel, page hierarchy, typography, spacing, colors, and important interactions.
+- Make the static result visually equal to or better than the source without changing the site's identity.
+```
+
+### 中文简版指令
+
+```text
+使用 $tailwind-static-replica 复刻 https://example.com，输出静态 Tailwind HTML 页面。先分析目标网站结构，再根据目标站语义决定要生成哪些页面和文件名。不要后端，不接 API。
+```
+
+### 中文详细版指令
+
+```text
+使用 $tailwind-static-replica 复刻 https://example.com，输出静态 Tailwind 前端页面。
+
+请先浏览并分析目标网站结构，生成页面计划：
+源站路由或可见导航项 -> 输出文件名 -> 原因
+
+然后根据目标站真实结构生成静态 HTML 页面。不要默认固定生成 index.html、category.html、detail.html。
+
+要求：
+- 使用 Tailwind CSS 重构静态 UI。
+- 不要后端、不要数据库、不要真实 API 请求。
+- 公开资源尽量下载到本地 assets/ 目录。
+- 内部链接改写为生成后的本地 .html 文件。
+- 后端依赖行为改成静态 UI 状态或少量 vanilla JS 交互。
+- 适配桌面、平板、手机。
+- 保留目标站的品牌感觉、页面层级、字体、间距、颜色和重要交互。
+- 最终视觉效果要接近或优于目标站，但不要改变目标站的设计身份。
+```
+
+### Explicit Page Request / 明确指定页面
+
+Use this form only when you already know the exact pages you want:
+
+```text
+Use $tailwind-static-replica to recreate https://example.com as a static Tailwind site.
+
+Generate these pages:
+- index.html from the homepage
+- pricing.html from the pricing page
+- products.html from the product listing page
+- product.html from one representative product detail page
+
+No backend or APIs. Localize public assets where possible and match responsive layouts.
+```
+
+中文：
+
+```text
+使用 $tailwind-static-replica 复刻 https://example.com，输出静态 Tailwind 页面。
+
+请生成这些页面：
+- index.html：来自首页
+- pricing.html：来自价格页
+- products.html：来自产品列表页
+- product.html：来自一个代表性的产品详情页
+
+不要后端，不接 API。公开资源尽量本地化，并匹配响应式布局。
 ```
 
 ## Typical Workflow
