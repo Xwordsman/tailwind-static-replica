@@ -6,6 +6,42 @@ It guides an AI coding agent to inspect a target website, infer the needed page 
 
 The goal is not to build a backend or apply a generic template. The goal is to produce a faithful static frontend reconstruction of the target site, with visual fidelity equal to or better than the source.
 
+## Page Planning Is Required
+
+This skill does **not** assume a fixed set of pages.
+
+Do not blindly generate only:
+
+```text
+index.html
+category.html
+detail.html
+```
+
+Instead, the agent must inspect the target site's real structure first, then create a page plan:
+
+```text
+source route or visible nav item -> output filename -> reason
+```
+
+The output filenames should come from the target site's route semantics, navigation labels, and content types.
+
+Examples:
+
+```text
+/                         -> index.html          -> homepage
+/about                    -> about.html          -> company/about page
+/pricing                  -> pricing.html        -> pricing page
+/products                 -> products.html       -> product collection
+/products/example-product -> product.html        -> representative product detail
+/blog                     -> blog.html           -> blog index
+/blog/example-post        -> article.html        -> representative article
+/case-studies             -> case-studies.html   -> case study listing
+/case-studies/example     -> case-study.html     -> representative case study
+```
+
+Use generic names such as `category.html`, `list.html`, or `detail.html` only when they are the best semantic fit or when the user explicitly requests them.
+
 ## What It Does
 
 - Recreates authorized websites as static HTML/CSS/JS pages.
@@ -69,6 +105,17 @@ Then invoke it with:
 Use $tailwind-static-replica to recreate https://example.com as a static Tailwind site. Inspect the target structure first, decide the needed HTML pages and filenames, then generate the static UI with local assets and no backend.
 ```
 
+Recommended prompt:
+
+```text
+Use $tailwind-static-replica to recreate https://example.com as a static Tailwind site.
+
+First inspect the target site's structure and create a page plan:
+source route or visible nav item -> output filename -> reason
+
+Then generate the static HTML pages using target-derived filenames. Do not assume fixed pages like category.html or detail.html. No backend, no API calls. Localize public assets where possible and match desktop/tablet/mobile.
+```
+
 ## Typical Workflow
 
 1. Provide a target URL and any required pages if you already know them.
@@ -81,7 +128,7 @@ Use $tailwind-static-replica to recreate https://example.com as a static Tailwin
 
 ## Expected Output
 
-The generated project should look similar to:
+The generated project should look similar to this, but the page names are examples only. The actual pages must come from the target site's structure:
 
 ```text
 dist/
