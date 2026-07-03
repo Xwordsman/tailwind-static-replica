@@ -1,0 +1,4 @@
+interface:
+  display_name: "Tailwind Static Replica"
+  short_description: "Recreate authorized websites as static Tailwind UI pages."
+  default_prompt: "Use $tailwind-static-replica to recreate https://example.com as static index.html, category.html, and detail.html pages."
